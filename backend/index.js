@@ -13,7 +13,11 @@ const Note = require('./models/note.model');
 mongoose.connect(process.env.MONGO_URI);
 
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(cors({
+    origin: "http://localhost:5173", 
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 
 app.get('/', (req, res) => {
     res.redirect('/login');

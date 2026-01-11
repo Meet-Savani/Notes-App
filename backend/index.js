@@ -19,8 +19,8 @@ app.use(cors({
     credentials: true
 }));
 
-app.get("*", (req, res) => {
-    res.sendFile(path.resolve("dist", "index.html"));
+app.get("/", (req, res) => {
+    res.json({ message: "Notes API is running" });
 });
 
 // Create Account

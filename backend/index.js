@@ -12,15 +12,16 @@ const Note = require('./models/note.model');
 // Database Connection 
 mongoose.connect(process.env.MONGO_URI);
 app.use(express.json());
+app.use(express.static('dist'));
 app.use(cors({
     origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
 
-app.get('/', (req, res) => {
-    res.json({ message: "Notes API is running" });
-})
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve("dist", "index.html"));
+});
 
 // Create Account
 app.post('/create-account', async (req, res) => {

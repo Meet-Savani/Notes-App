@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const User = require('./models/user.model');
 const Note = require('./models/note.model');
-import path from 'path';
-import { fileURLToPath } from "url";
+const path = require('path');
+const { fileURLToPath } = require('url');
 
 // Database Connection 
 mongoose.connect(process.env.MONGO_URI);

@@ -8,11 +8,13 @@ const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const User = require('./models/user.model');
 const Note = require('./models/note.model');
+const helmet = require('helmet');
 const path = require('path');
 
 // Database Connection 
 mongoose.connect(process.env.MONGO_URI);
 app.use(express.json());
+app.use(helmet());
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 app.use(cors({
     origin: process.env.FRONTEND_URL,
@@ -20,7 +22,7 @@ app.use(cors({
     credentials: true
 }));
 
-app.use((req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
 });
 

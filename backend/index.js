@@ -9,22 +9,18 @@ const mongoose = require('mongoose');
 const User = require('./models/user.model');
 const Note = require('./models/note.model');
 const path = require('path');
-const { fileURLToPath } = require('url');
 
 // Database Connection 
 mongoose.connect(process.env.MONGO_URI);
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 app.use(cors({
     origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-app.get("*", (req, res) => {
+app.use((req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
 });
 
